@@ -1,6 +1,7 @@
 /**
   *
   * People often use a wrong spelling of some word and sometimes it is irritating. Created this bot to teach them the correct spelling.
+  * @Warning: rate-limitting has not been taken care of. Do not use a keyword that is very popular. You will be blocked temporarily because of rate-limiting
   *
 */
 
