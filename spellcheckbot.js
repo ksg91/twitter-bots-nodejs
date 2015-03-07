@@ -19,13 +19,15 @@ var sWrongSpell = 'gujrat';
 var sCorrectSpell = 'Gujarat';
 var tweetTemplate = "hey, it's "+sCorrectSpell+", not "+sWrongSpell;
 
+var sBotScreenName = "GujaratBot";
+
 var lastUserID = 0;
 
 client.stream('statuses/filter', {track: sWrongSpell}, function(stream) {
   stream.on('data', function(tweet) {
 
-  	//! Prevent sending tweets to same person again.
-  	if(lastUserID==tweet.user.id) {
+  	//! Prevent sending tweets to same person again or to the bot itself
+  	if(lastUserID==tweet.user.id || sBotScreenName==tweet.user.screen_name) {
   		return;
   	}
   	lastUserID=tweet.user.id;
