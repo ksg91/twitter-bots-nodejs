@@ -19,8 +19,17 @@ var sWrongSpell = 'gujrat';
 var sCorrectSpell = 'Gujarat';
 var tweetTemplate = "hey, it's "+sCorrectSpell+", not "+sWrongSpell;
 
-client.stream('statuses/filter', {follow: sUsersToFollow}, function(stream) {
+var lastUserID = 0;
+
+client.stream('statuses/filter', {track: sWrongSpell}, function(stream) {
   stream.on('data', function(tweet) {
+
+  	//! Prevent sending tweets to same person again.
+  	if(lastUserID==tweet.user.id) {
+  		return;
+  	}
+  	lastUserID=tweet.user.id;
+
     client.post('statuses/update', {status: '@'+tweet.user.screen_name+' '+tweetTemplate, in_reply_to_status_id: tweet.id_str},  function(error, tweet, response){
      if(error) throw error;
        console.log(tweet);  // Tweet body.
