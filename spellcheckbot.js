@@ -33,8 +33,13 @@ client.stream('statuses/filter', {track: sWrongSpell}, function(stream) {
   	lastUserID=tweet.user.id;
 
     client.post('statuses/update', {status: '@'+tweet.user.screen_name+' '+tweetTemplate, in_reply_to_status_id: tweet.id_str},  function(error, tweet, response){
-     if(error) throw error;
-       console.log(tweet);  // Tweet body.
+     if(error) {
+     	console.log(error)
+     }
+     else {
+     	console.log(tweet.id); 
+     }
+       
        console.log(response);  // Raw response object.
     });
   });
